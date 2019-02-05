@@ -1,26 +1,26 @@
 {
-  "name": "ssh-webpack-plugin",
-  "version": "0.1.7",
-  "description": "Webpack SSH deployment plugin.",
+  "name": "ssh-multiple-webpack-plugin",
+  "version": "0.0.1",
+  "description": "Webpack SSH deployment plugin with multiple destinations.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/unadlib/ssh-webpack-plugin.git"
+    "url": "git+https://github.com/reblevins/ssh-multiple-webpack-plugin.git"
   },
   "keywords": [
     "webpack",
     "SSH",
     "deploy"
   ],
-  "author": "unadlib",
+  "author": "CDS",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/unadlib/ssh-webpack-plugin/issues"
+    "url": "https://github.com/reblevins/ssh-multiple-webpack-plugin/issues"
   },
-  "homepage": "https://github.com/unadlib/ssh-webpack-plugin#readme",
+  "homepage": "https://github.com/reblevins/ssh-multiple-webpack-plugin#readme",
   "dependencies": {
     "async": "^2.1.2",
     "colors": "^1.1.2",
