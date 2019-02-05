@@ -11,19 +11,19 @@ The webpack plugin helps developers quickly and automatically deploy project pro
 
 Install the plugin with npm:
 ```shell
-npm install ssh-webpack-plugin --save-dev
+npm install ssh-multiple-webpack-plugin --save-dev
 ```
 ## Usage
 Just add the plugin to your webpack config as follows:
 ```
-var SshWebpackPlugin = require('ssh-webpack-plugin');
+var SSHWebpackPlugin = require('ssh-multiple-webpack-plugin');
 var webpackConfig = {
   entry: 'index.js',
   output: {
     path: 'build',
     filename: 'app.js'
   },
-  plugins: [new SshWebpackPlugin({
+  plugins: [new SSHWebpackPlugin({
         host: 'Remote host',
         port: 'Remote port',
         username: 'Remote username',
@@ -108,7 +108,7 @@ Default value: `[]`
 Add setting in `webpack.config.js`:
 ```
 plugins: [
-    new SshWebpackPlugin({
+    new SSHWebpackPlugin({
         host: '10.211.55.5',
         port: '22',
         username: 'root',
