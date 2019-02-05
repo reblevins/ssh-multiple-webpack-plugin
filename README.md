@@ -1,11 +1,13 @@
 # ssh-webpack-plugin
-Webpack SSH deployment plugin.
+Webpack SSH multiple destinations deployment plugin.
+
+A fork of https://github.com/unadlib/ssh-webpack-plugin
 
 -----
 
 >The Webpack plugin is based on ssh2 and scp2.
 
-The webpack plugin helps developers quickly and automatically deploy project projects to the production server, support for ssh-privateKey login, and shell execution before and after the deployment of the command.
+The webpack plugin helps developers quickly and automatically deploy a project to a single or multiple production server(s), support for ssh-privateKey login, and shell execution before and after the deployment of the command.
 
 ## Install
 
@@ -24,43 +26,43 @@ var webpackConfig = {
     filename: 'app.js'
   },
   plugins: [new SSHWebpackPlugin({
-        host: 'Remote host',
+        hosts: ['Array', 'Of', 'Host(s)'],
         port: 'Remote port',
         username: 'Remote username',
-        password: 'Remote password',//or use privateKey login(privateKey: require('fs').readFileSync('/path/to/private/key')).
+        password: 'Remote password', //or use privateKey login(privateKey: require('fs').readFileSync('/path/to/private/key')).
         from: 'Deploy Local path',
-        to: 'Remote full path',//important: If the 'cover' of value is false,All files in this folder will be cleared before starting deployment.
+        to: 'Remote full path', //important: If the 'cover' of value is false,All files in this folder will be cleared before starting deployment.
   })]
 };
 ```
 
 ### Options
 
-#### host
-Type: `String`
->The host of the remote server.
+#### hosts
+Type: `Array`
+>An array of one or more hosts for the remote servers.
 
 #### port
 Type: `String`
 Default value: `'22'`
->Port to connect to on the remote server.
+>Port to connect to on the remote server(s).
 
 #### username
 Type: `String`
->The username to connect as on the remote server.
+>The username to connect as on the remote server(s).
 
 #### password
 Type: `String`
->Password for the username on the remote server.
+>Password for the username on the remote server(s).
 
 #### to
 Type: `String`
->Full path on the remote server where files will be deployed.
+>Full path on the remote server(s) where files will be deployed.
 
 #### from
 Type: `String`
 Default value: `'build'`
->Path on your local for the files you want to be deployed to the remote server. No trailing slash needed.
+>Path on your local for the files you want to be deployed to the remote server(s). No trailing slash needed.
 
 #### cover
 Type: `Boolean`
@@ -78,11 +80,11 @@ Type: `String`
 
 #### before
 Type: `String` or `Array`
->Commands to run on the server before and before deploy directory is created. 
+>Commands to run on the server(s) before and before deploy directory is created. 
 
 #### after
 Type: `String` or `Array`
->Commands to run on the server before and after deploy directory is created. 
+>Commands to run on the server(s) before and after deploy directory is created. 
 
 #### readyTimeout
 Type: `Number`
@@ -109,17 +111,37 @@ Add setting in `webpack.config.js`:
 ```
 plugins: [
     new SSHWebpackPlugin({
-        host: '10.211.55.5',
+        host: ['127.0.0.1', '127.0.0.2', '127.0.0.3'],
         port: '22',
         username: 'root',
-        privateKey: require('fs').readFileSync('/Users/unadlib/.ssh/id_rsa'),
-        before:'mkdir beforeTest',
-        after:'mkdir afterTest',
-        from: './build',
-        to: '/root/test',
+        privateKey: require('fs').readFileSync('/Users/username/.ssh/id_rsa'),
+        before: 'cd /var/www/html && mkdir subdir', // If the from path is an entire sub-directory
+        from: 'dist/subdir',
+        to: '/var/www/html',
     })
 ]
 ```
+
+If you're using vue-cli, add this to the `vue.config.js` in the root of your project:
+```
+module.exports = {
+  ...vue config...
+  configureWebpack: {
+    plugins: [
+      new SSHWebpackPlugin({
+          host: ['127.0.0.1', '127.0.0.2', '127.0.0.3'],
+          port: '22',
+          username: 'root',
+          privateKey: require('fs').readFileSync('/Users/username/.ssh/id_rsa'),
+          before: 'cd /var/www/html && mkdir subdir', // If the from path is an entire sub-directory
+          from: 'dist/subdir',
+          to: '/var/www/html'
+      })
+    ]
+  }
+}
+```
+
 ## Release History
 * 2016/10/22 - v0.1.7 - Add the 'cover' options.
 * 2016/10/22 - v0.1.4 - Initial Release.
