@@ -1,6 +1,6 @@
 {
   "name": "ssh-multiple-webpack-plugin",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Webpack SSH deployment plugin with multiple destinations.",
   "main": "index.js",
   "scripts": {
@@ -25,6 +25,7 @@
     "async": "^2.1.2",
     "colors": "^1.1.2",
     "extend": "^3.0.0",
+    "lodash": "^4.17.11",
     "scp2": "^0.5.0",
     "ssh2": "^0.5.2"
   }
